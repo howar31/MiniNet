@@ -2,3 +2,4 @@
 *.swp
 README
 topo-2sw-2host.py
+fat_tree_topology.py

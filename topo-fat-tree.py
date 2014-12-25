@@ -29,24 +29,24 @@ class FatTree( Topo ):
 
         # Core
         for core in range(0, coreSwitchNum):
-            coreSwitches.append(self.addSwitch("cs-"+str(core)))
+            coreSwitches.append(self.addSwitch("cs_"+str(core)))
         # Pod
         for pod in range(0, podNum):
         # Aggregate
             for aggr in range(0, aggrSwitchNum/podNum):
-                aggrThis = self.addSwitch("as-"+str(pod)+"-"+str(aggr))
+                aggrThis = self.addSwitch("as_"+str(pod)+"_"+str(aggr))
                 aggrSwitches.append(aggrThis)
                 for x in range((K/2)*aggr, (K/2)*(aggr+1)):
 #                    self.addLink(aggrSwitches[aggr+(aggrSwitchNum/podNum*pod)], coreSwitches[x])
                     self.addLink(aggrThis, coreSwitches[x])
         # Edge
             for edge in range(0, edgeSwitchNum/podNum):
-                edgeThis = self.addSwitch("es-"+str(pod)+"-"+str(edge))
+                edgeThis = self.addSwitch("es_"+str(pod)+"_"+str(edge))
                 edgeSwitches.append(edgeThis)
                 for x in range((edgeSwitchNum/podNum)*pod, ((edgeSwitchNum/podNum)*(pod+1))):
                     self.addLink(edgeThis, aggrSwitches[x])
         # Host
                 for x in range(0, (hostNum/podNum/(edgeSwitchNum/podNum))):
-                    self.addLink(edgeThis, self.addHost("h-"+str(pod)+"-"+str(edge)+"-"+str(x)))
+                    self.addLink(edgeThis, self.addHost("h_"+str(pod)+"_"+str(edge)+"_"+str(x)))
 
 topos = { 'fattree': ( lambda: FatTree() ) }
